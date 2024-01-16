@@ -1,4 +1,4 @@
 #!/bin/bash
 # stop_docker.sh
-docker stop my-nginx-container
-docker rm my-nginx-container
+docker stop ${CONTAINER_NAME}
+docker rm ${CONTAINER_NAME}

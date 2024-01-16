@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /home/ec2-user/my-nginx-app
+    destination: /home/ec2-user/my-spring-app
 hooks:
   BeforeInstall:
     - location: scripts/before_install.sh
@@ -12,11 +12,21 @@ hooks:
     - location: scripts/start_docker.sh
       timeout: 300
       runas: root
+      environment:
+        AWS_REGION: "<AWS_REGION>"
+        CONTAINER_NAME: "<CONTAINER_NAME>"
+        ECR_REGISTRY: "<ECR_REGISTRY>"
+        ECR_REPOSITORY: "<ECR_REPOSITORY>"
+        IMAGE_TAG: "<IMAGE_TAG>"
   ApplicationStop:
     - location: scripts/stop_docker.sh
       timeout: 300
       runas: root
+      environment:
+        CONTAINER_NAME: "<CONTAINER_NAME>"
   ValidateService:
     - location: scripts/validate_service.sh
       timeout: 300
       runas: root
+      environment:
+        CONTAINER_NAME: "<CONTAINER_NAME>"
