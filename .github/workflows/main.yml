@@ -35,12 +35,12 @@ jobs:
 
       - name: Upload .zip to Amazon S3
         run: |
-          aws s3 cp deployment_package.zip s3://${{ env.BUCKET_NAME }}/${{ github.run_id }}.zip
+          aws s3 cp deployment_package.zip s3://${{ env.BUCKET_NAME }}/$GITHUB_SHA.zip
 
       - name: Create deployment to AWS CodeDeploy
         run: |
           aws deploy create-deployment \
-            --application-name ${{ env.CODEDEPLOY_APP_NAME }} \ 
-            --deployment-config-name CodeDeployDefault.OneAtATime \
-            --deployment-group-name ${{ env.DEPLOYMENT_GROUP_NAME }} \ 
-            --s3-location bucket=${{ env.BUCKET_NAME }},bundleType=zip,key=${{ github.run_id }}.zip 
+            --application-name ${{ env.CODEDEPLOY_APP_NAME }} \
+            --deployment-config-name CodeDeployDefault.AllAtOnce \
+            --deployment-group-name ${{ env.DEPLOYMENT_GROUP_NAME }} \
+            --s3-location bucket=${{ env.BUCKET_NAME }},key=$GITHUB_SHA.zip,bundleType=zip
