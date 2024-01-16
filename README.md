@@ -75,7 +75,7 @@ systemctl status codedeploy-agent
 - Compute platform : `EC2/On-premises`
 
 ### Create Amazon CodeDeploy Deployment group
-- Deployment group name : `deployment-group`
+- Deployment group name : `spring-app`
 - Service role : `CodeDeployServiceRole`
 - Deployment type : `In-Place`
 - Environment configuration : `Amazon EC2 instances`
@@ -128,6 +128,6 @@ systemctl status codedeploy-agent
 
 ### Update GitHub Actions Secrets
 - BUCKET_NAME
-- CODEDEPLOY_APP_NAME : `application`
-- DEPLOYMENT_GROUP_NAME : `deployment-group`
+- CODEDEPLOY_APP_NAME : `spring-app`
+- DEPLOYMENT_GROUP_NAME : `spring-app`
 - ROLE_NAME : IAM Role for Github Actions
