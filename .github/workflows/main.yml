@@ -43,4 +43,5 @@ jobs:
             --application-name ${{ env.CODEDEPLOY_APP_NAME }} \
             --deployment-config-name CodeDeployDefault.AllAtOnce \
             --deployment-group-name ${{ env.DEPLOYMENT_GROUP_NAME }} \
-            --s3-location bucket=${{ env.BUCKET_NAME }},key=$GITHUB_SHA.zip,bundleType=zip
+            --s3-location bucket=${{ env.BUCKET_NAME }},key=$GITHUB_SHA.zip,bundleType=zip \
+            --file-exists-behavior OVERWRITE
