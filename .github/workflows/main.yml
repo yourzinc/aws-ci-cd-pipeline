@@ -1,0 +1,32 @@
+name: AWS example workflow
+
+on:
+  push
+
+env:
+  BUCKET_NAME : "aws-github-actions-011624"
+  AWS_REGION : "ap-northeast-2"
+  ROLE_NAME : "arn:aws:iam::582765306680:role/github-actions-role"
+
+permissions:
+  id-token: write   
+  contents: read    
+
+jobs:
+  S3PackageUpload:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Git clone the repository
+        uses: actions/checkout@v4
+
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: ${{ env.ROLE_NAME }}
+          role-session-name: samplerolesession
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name:  Copy README.md to s3
+        run: |
+          aws s3 cp ./README.md s3://${{ env.BUCKET_NAME }}/
