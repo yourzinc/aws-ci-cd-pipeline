@@ -1,7 +1,9 @@
 name: AWS example workflow
 
 on:
-  push
+  push:
+    branches-ignore:
+      - 'deploy/*'
 
 env:
   AWS_REGION : "ap-northeast-2"
