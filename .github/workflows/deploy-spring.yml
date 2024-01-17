@@ -58,11 +58,13 @@ jobs:
           ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          sed -i "s/<AWS_REGION>/${{ env.AWS_REGION }}/g" appspec.yml
-          sed -i "s/<CONTAINER_NAME>/${{ env.CONTAINER_NAME }}/g" appspec.yml
-          sed -i "s/<ECR_REGISTRY>/$ECR_REGISTRY/g" appspec.yml
-          sed -i "s/<ECR_REPOSITORY>/$ECR_REPOSITORY/g" appspec.yml
-          sed -i "s/<IMAGE_TAG>/$IMAGE_TAG/g" appspec.yml
+          sed -i "s/<AWS_REGION>/${{ env.AWS_REGION }}/g" scripts/start_docker.sh
+          sed -i "s/<CONTAINER_NAME>/${{ env.CONTAINER_NAME }}/g" scripts/start_docker.sh
+          sed -i "s/<ECR_REGISTRY>/$ECR_REGISTRY/g" scripts/start_docker.sh
+          sed -i "s/<ECR_REPOSITORY>/$ECR_REPOSITORY/g" scripts/start_docker.sh
+          sed -i "s/<IMAGE_TAG>/$IMAGE_TAG/g" scripts/start_docker.sh
+          sed -i "s/<CONTAINER_NAME>/${{ env.CONTAINER_NAME }}/g" scripts/stop_docker.sh
+          sed -i "s/<CONTAINER_NAME>/${{ env.CONTAINER_NAME }}/g" scripts/validate_service.sh
 
       - name: Make .zip
         run: |
