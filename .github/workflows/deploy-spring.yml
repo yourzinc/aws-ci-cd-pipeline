@@ -3,7 +3,7 @@ name: AWS CodeDeploy Automation
 on:
   push:
     branches: 
-      - "deploy/spring"
+      # - "deploy/spring"
 
 env:
   AWS_REGION : "ap-northeast-2"
@@ -64,7 +64,7 @@ jobs:
           sed -i "s/<ECR_REPOSITORY>/$ECR_REPOSITORY/g" scripts/start_docker.sh
           sed -i "s/<IMAGE_TAG>/$IMAGE_TAG/g" scripts/start_docker.sh
           sed -i "s/<CONTAINER_NAME>/${{ env.CONTAINER_NAME }}/g" scripts/stop_docker.sh
-          sed -i "s/<CONTAINER_NAME>/${{ env.CONTAINER_NAME }}/g" scripts/validate_service.sh
+          sed -i "s/<CONTAINER_NAME>/${{ env.CONTAINER_NAME }}/g" scripts/start_docker.sh
 
       - name: Make .zip
         run: |
@@ -79,6 +79,6 @@ jobs:
           aws deploy create-deployment \
             --application-name ${{ secrets.CODEDEPLOY_APP_NAME }} \
             --deployment-config-name CodeDeployDefault.AllAtOnce \
-            --deployment-group-name pvt-spring-app \
+            --deployment-group-name ${{ secrets.DEPLOYMENT_GROUP_NAME }} \
             --s3-location bucket=${{ secrets.BUCKET_NAME }},key=$GITHUB_SHA.zip,bundleType=zip \
             --file-exists-behavior OVERWRITE
